@@ -35,8 +35,12 @@ class Compressor:
         :param size_bloc: The size of the bloc used to make an average
         :return: A new image minified
         """
-        assert self._width % size_bloc == 0, "'size_bloc' need to be a denominator of the image's width"
-        assert self._height % size_bloc == 0, "'size_bloc' need to be a denominator of the image's height"
+        assert self._width % size_bloc == 0, "'size_bloc' need to be a " \
+                                             "denominator of the image's " \
+                                             "width"
+        assert self._height % size_bloc == 0, "'size_bloc' need to be a " \
+                                              "denominator of the image's " \
+                                              "height"
 
         new_width = self._width // size_bloc
         new_height = self._height // size_bloc
@@ -46,7 +50,13 @@ class Compressor:
 
         for column in range(new_width):
             for line in range(new_height):
-                block = self.crop(matrice, line*size_bloc, column*size_bloc, size_bloc, size_bloc)
+                block = self.crop(
+                    matrice=matrice,
+                    line=line*size_bloc,
+                    column=column*size_bloc,
+                    width=size_bloc,
+                    height=size_bloc,
+                )
                 new_matrice[line][column] = self.block_average(block)
 
         return new_matrice
@@ -64,7 +74,8 @@ class Compressor:
         block = self.create_empty_matrice(width, height)
         for id_line in range(width):
             for id_column in range(height):
-                block[id_line][id_column] = matrice[line + id_line][column + id_column]
+                block[id_line][id_column] = \
+                    matrice[line + id_line][column + id_column]
 
         return block
 
