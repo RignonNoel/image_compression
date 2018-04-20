@@ -17,7 +17,7 @@ class Compressor:
         self._height = size[1]
 
     def get_matrice(self):
-        """Return an array that represent the image"""
+        """Return the matrice that represent the image"""
         image = Image.open(self._path)
         pixels = image.load()
 
@@ -28,6 +28,19 @@ class Compressor:
                 matrice[id_column][id_line] = pixels[id_line, id_column]
 
         return matrice
+
+    def get_array(self):
+        """Return an array that represent the image"""
+        image = Image.open(self._path)
+        pixels = image.load()
+
+        array = list()
+
+        for id_column in range(self._height):
+            for id_line in range(self._width):
+                array.append(pixels[id_line, id_column])
+
+        return array
 
     def minify(self, size_bloc):
         """
